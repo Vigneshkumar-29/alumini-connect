@@ -48,6 +48,9 @@ export function Navigation() {
             <NavLink to="/events" active={location.pathname === '/events'}>
               Events
             </NavLink>
+            <NavLink to="/gigs" active={location.pathname.startsWith('/gigs')}>
+              Services
+            </NavLink>
             {user ? (
               <>
                 <NavLink to="/profile" active={location.pathname === '/profile'}>
@@ -106,6 +109,9 @@ export function Navigation() {
             </MobileNavLink>
             <MobileNavLink to="/events" onClick={toggleMenu}>
               Events
+            </MobileNavLink>
+            <MobileNavLink to="/gigs" onClick={toggleMenu}>
+              Services
             </MobileNavLink>
             {user ? (
               <>

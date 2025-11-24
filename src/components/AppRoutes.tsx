@@ -9,6 +9,9 @@ import { Mentorship } from './mentorship/Mentorship';
 import { Events } from './events/Events';
 import { Login } from './auth/Login';
 import { Register } from './auth/Register';
+import { Gigs } from './gigs/Gigs';
+import { GigDetail } from './gigs/GigDetail';
+import { Profile } from './gigs/Profile';
 
 export function AppRoutes() {
   return (
@@ -22,6 +25,9 @@ export function AppRoutes() {
       <Route path="/events" element={<Events />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/gigs" element={<Gigs />} />
+      <Route path="/gigs/:id" element={<GigDetail />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }
