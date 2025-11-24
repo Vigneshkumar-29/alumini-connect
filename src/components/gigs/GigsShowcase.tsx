@@ -1,18 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, Search, Filter, X, Menu } from 'lucide-react';
-import { ProjectCard } from './ProjectCard';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState, useRef, useEffect } from 'react';
+import { Search, Filter, X, Menu } from 'lucide-react';
+import { gigs } from '../../data/gigs';
+import { ServiceCard } from '../ui/ServiceCard';
 
-export function ProjectShowcase() {
-  const { user } = useAuth();
+export function GigsShowcase() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const categories = ['All', 'Web Development', 'Mobile Apps', 'AI/ML', 'Data Science', 'Design'];
+  const categories = [
+    'All',
+    'Web Development',
+    'Mobile Apps',
+    'Design',
+  ];
+
+  const filteredGigs = gigs.filter((gig) => {
+    const matchesSearch =
+      gig.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      gig.seller.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      selectedCategory === 'all' || gig.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   // Handle window resize
   useEffect(() => {
@@ -26,6 +38,7 @@ export function ProjectShowcase() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Close sidebar on selection
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category.toLowerCase());
     if (isSmallScreen) {
@@ -33,45 +46,10 @@ export function ProjectShowcase() {
     }
   };
 
-  // Mock projects data (replace with actual API call)
-  const projects = [
-    {
-      id: '1',
-      title: 'AI-Powered Study Assistant',
-      description: 'An intelligent study companion that helps students organize their learning materials and create personalized study plans.',
-      author: 'Emily Chen',
-      category: 'AI/ML',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80',
-      tags: ['Python', 'Machine Learning', 'NLP'],
-      likes: 42,
-      comments: 15
-    },
-    {
-      id: '2',
-      title: 'EcoTrack Mobile App',
-      description: 'A mobile application that helps users track and reduce their carbon footprint through daily activities.',
-      author: 'Marcus Johnson',
-      category: 'Mobile Apps',
-      image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&q=80',
-      tags: ['React Native', 'Firebase', 'Maps API'],
-      likes: 38,
-      comments: 12
-    }
-  ];
-
   return (
     <div className="page-container space-y-8">
       <div className="flex justify-between items-center gap-4">
-        <h1 className="text-3xl font-bold">Project Showcase</h1>
-        {user && (
-          <Link
-            to="/projects/create"
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            <Plus className="w-5 h-5" />
-            Share Project
-          </Link>
-        )}
+        <h1 className="text-3xl font-bold">Browse Services</h1>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 items-start relative">
@@ -111,10 +89,10 @@ export function ProjectShowcase() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Search projects..."
+                  placeholder="Search services..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -152,13 +130,29 @@ export function ProjectShowcase() {
           />
         )}
 
-        {/* Project Grid */}
+        {/* Services Grid */}
         <div className="flex-1 w-full">
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
+          {filteredGigs.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGigs.map((gig) => (
+                <ServiceCard
+                  key={gig.id}
+                  id={gig.id}
+                  title={gig.title}
+                  image={gig.image}
+                  seller={gig.seller}
+                  startingPrice={gig.startingPrice}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600 mb-2">No services found</p>
+              <p className="text-sm text-gray-500">
+                Try adjusting your search or filters
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

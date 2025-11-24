@@ -19,7 +19,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link to={`/projects/${project.id}`}>
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
