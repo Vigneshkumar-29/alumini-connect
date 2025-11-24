@@ -39,9 +39,6 @@ export function Navigation() {
             <NavLink to="/projects" active={location.pathname.startsWith('/projects')}>
               Projects
             </NavLink>
-            <NavLink to="/gigs" active={location.pathname.startsWith('/gigs')}>
-              Services
-            </NavLink>
             <NavLink to="/jobs" active={location.pathname === '/jobs'}>
               Jobs
             </NavLink>
@@ -96,23 +93,20 @@ export function Navigation() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-       <div className="md:hidden absolute top-16 left-0 right-0 glass-nav shadow-lg">
-         <div className="px-4 py-2 space-y-1">
-           <MobileNavLink to="/projects" onClick={toggleMenu}>
-             Projects
-           </MobileNavLink>
-           <MobileNavLink to="/gigs" onClick={toggleMenu}>
-             Services
-           </MobileNavLink>
-           <MobileNavLink to="/jobs" onClick={toggleMenu}>
-             Jobs
-           </MobileNavLink>
-           <MobileNavLink to="/mentorship" onClick={toggleMenu}>
-             Mentorship
-           </MobileNavLink>
-           <MobileNavLink to="/events" onClick={toggleMenu}>
-             Events
-           </MobileNavLink>
+        <div className="md:hidden absolute top-16 left-0 right-0 glass-nav shadow-lg">
+          <div className="px-4 py-2 space-y-1">
+            <MobileNavLink to="/projects" onClick={toggleMenu}>
+              Projects
+            </MobileNavLink>
+            <MobileNavLink to="/jobs" onClick={toggleMenu}>
+              Jobs
+            </MobileNavLink>
+            <MobileNavLink to="/mentorship" onClick={toggleMenu}>
+              Mentorship
+            </MobileNavLink>
+            <MobileNavLink to="/events" onClick={toggleMenu}>
+              Events
+            </MobileNavLink>
             {user ? (
               <>
                 <MobileNavLink to="/profile" onClick={toggleMenu}>
