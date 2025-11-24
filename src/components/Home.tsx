@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GraduationCap, Users, Briefcase, Calendar, ArrowRight } from 'lucide-react';
-import { ServiceCard } from './ui/ServiceCard';
-import { gigs } from '../data/gigs';
+import { GraduationCap, Users, Briefcase, Calendar } from 'lucide-react';
 
 export function Home() {
   return (
-    <div className="space-y-12 max-w-7xl mx-auto px-4">
+    <div className="space-y-12">
       {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center overflow-hidden -mx-4">
+      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80"
@@ -59,48 +57,6 @@ export function Home() {
             title="Events & Workshops"
             description="Participate in skill-building workshops and networking events"
           />
-        </div>
-      </section>
-
-      {/* Featured Services */}
-      <section className="py-16">
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                Featured Services
-              </h2>
-              <p className="text-gray-600">
-                Explore professional services from our community
-              </p>
-            </div>
-            <Link
-              to="/gigs"
-              className="hidden sm:flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition"
-            >
-              View All
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gigs.slice(0, 3).map((gig) => (
-              <ServiceCard
-                key={gig.id}
-                id={gig.id}
-                title={gig.title}
-                image={gig.image}
-                seller={gig.seller}
-                startingPrice={gig.startingPrice}
-              />
-            ))}
-          </div>
-          <Link
-            to="/gigs"
-            className="sm:hidden flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition py-4"
-          >
-            View All Services
-            <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </section>
 
